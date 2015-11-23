@@ -1,0 +1,68 @@
+<?xml version="1.0"?>
+
+<project name="DiscountStrategy" default="compile">
+  <property name="blddir" location="build" />
+  <property name="classdir" location="${blddir}/classes" />
+  <property name="jardir" location="${blddir}/jar"/>
+
+  <target name="init">
+  	<echo message="making build directory and subdirectories"/>
+    <mkdir dir="${blddir}" />
+    <mkdir dir="${classdir}" />
+  	<mkdir dir="${jardir}"/>
+  </target>
+
+	<!-- compile -->
+  <target name="compile" depends="init">
+  	<echo message="compiling all java classes"/>
+    <javac
+      srcdir="src"
+      destdir="${classdir}" 
+      debug="true"
+      includeantruntime="true"
+    >
+    </javac>
+  </target>
+	
+	<!-- make jar -->
+	<target name="link" depends="compile">
+		<echo message="making the jar"/>
+		<jar 
+			destfile="${jardir}/app.jar" 
+			basedir="${classdir}"
+		>		
+		</jar>
+	</target>
+	
+	<!-- run test
+	<target name="check" depends="compile">
+		<echo message="running the junit test"/>
+		<echo message="will output a text file (TEST-TestX) detailing failure if applicable"/>
+		<junit printsummary="yes" fork="yes" haltonfailure="no" showoutput="yes">
+			<formatter type="plain"/>
+			<test name ="TestOrder"/>
+			<test name ="TestPercent"/>
+			<test name ="TestCredit"/>
+			<classpath>
+				<path id="org.junit" location="C:/Users/Sheng/Desktop/eclipse/plugins/org.junit_4.12.0.v201504281640/junit.jar" />
+				<path id="org.hamcrest.core" location="C:/Users/Sheng/Desktop/eclipse/plugins/org.hamcrest.core_1.3.0.v201303031735.jar" />
+				<path location="${classdir}"/>
+			</classpath>
+		</junit>
+	</target>
+	-->
+	
+	<!-- delete built files 
+	<target name="clean">
+	        <echo message="deleting build directory"/>
+	        <delete dir="${blddir}"/>
+	</target>
+	-->
+	
+	<!-- do everything 
+	<target name="main" depends="check, link, clean">
+		<echo message="make directories, compile, run, make jar, then clean up, leaving only TEST-TestOrder.txt"/>
+	</target>	
+	-->
+	
+</project>
